@@ -1,0 +1,77 @@
+<html>
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  
+</head>
+<body>
+	
+	<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">Calculator</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <!-- <li><a href="#">Page 1</a></li>
+        <li><a href="#">Page 2</a></li> 
+        <li><a href="#">Page 3</a></li> --> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> 
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <h1 class = "text-center">Fibonacci Calculator</h1>
+  <!-- <p>In this example, the navigation bar is hidden on small screens and replaced by a button in the top right corner (try to re-size this window).
+  <p>Only when the button is clicked, the navigation bar will be displayed.</p> -->
+  <div class="row">
+  	<div class="col-md-2"></div>
+  	<div class="form-group col-md-8">
+  		<label>Enter Number: </label>
+  		<input type="number" class = "form-control number" placeholder="Number"><br>
+  		<button class = "btn btn-success submit">Submit</button>
+  		<div class="form-group">
+  			<h3>Output:</h3>
+  			<input type="text" class = "form-control output">
+  			<h3>Time:</h3>
+  			<input type="text" class = "form-control time">
+  			
+  		</div>
+  	</div>
+  	
+  	<div class="col-md-2"></div>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+	$(".submit").click(function(){
+		var number = $(".number").val();
+		var data = {};
+		data['number'] = number;
+		$.ajax({
+			type:'POST',
+			url:'/srvs/calculation',
+			data:JSON.stringify(data)
+		}).done(function(msg){
+			ret_data = JSON.parse(msg);
+			console.log(ret_data);
+			$(".output").val(ret_data['output']);
+			$(".time").val(ret_data['time']);
+			
+		});
+	});
+</script>
+</body>
+</html>
